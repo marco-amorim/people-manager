@@ -1,20 +1,44 @@
 package com.softplan.challenge.peoplemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "people")
 public class Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "native_from")
     private String nativeFrom;
+
+    @Column(name = "nationality")
     private String nationality;
+
+    @Column(name = "cpf")
     private String cpf;
+
+    @Column(name = "birth_date")
     private Date birthDate;
+
+    @Column(name = "gender")
     private String gender;
 
     public Person() {
     }
 
     public Person(String name, String email, String nativeFrom, String nationality, String cpf, Date birthDate, String gender) {
+        super();
         this.name = name;
         this.email = email;
         this.nativeFrom = nativeFrom;
@@ -78,5 +102,13 @@ public class Person {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
