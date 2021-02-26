@@ -8,13 +8,13 @@
 		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.softplan.challenge</groupId>
-	<artifactId>peoplemanager</artifactId>
+	<groupId>com.softplan</groupId>
+	<artifactId>PeopleManager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>peoplemanager</name>
-	<description>People Manager project for Softplan</description>
+	<name>PeopleManager</name>
+	<description>Softplan Code Challenge</description>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

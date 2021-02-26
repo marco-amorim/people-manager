@@ -1,7 +1,7 @@
-package com.softplan.challenge.peoplemanager.controller;
+package com.softplan.people.manager.controller;
 
-import com.softplan.challenge.peoplemanager.model.Person;
-import com.softplan.challenge.peoplemanager.repository.PersonRepository;
+import com.softplan.people.manager.model.Person;
+import com.softplan.people.manager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

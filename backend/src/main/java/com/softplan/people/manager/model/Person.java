@@ -1,7 +1,7 @@
-package com.softplan.challenge.peoplemanager.model;
+package com.softplan.people.manager.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.*;
 import java.util.Date;
 
