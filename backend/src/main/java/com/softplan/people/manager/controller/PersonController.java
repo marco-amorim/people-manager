@@ -3,10 +3,14 @@ package com.softplan.people.manager.controller;
 import com.softplan.people.manager.model.Person;
 import com.softplan.people.manager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -22,8 +26,17 @@ public class PersonController {
     }
 
     @PostMapping("/people")
-    public Person createPerson(@Valid @RequestBody Person person) {
-        return personRepository.save(person);
+    public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody Person person) {
+        try {
+            personRepository.save(person);
+            Map<String, String> response = new HashMap<>();
+            response.put("info", "Person created successfully");
+            return ResponseEntity.ok(response);
+        } catch (DataIntegrityViolationException ex) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "This CPF already exists in our database");
+            return ResponseEntity.ok(response);
+        }
     }
 
 }
