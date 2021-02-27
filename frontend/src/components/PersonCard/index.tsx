@@ -8,9 +8,11 @@ import { Button } from '@material-ui/core';
 import { Actions } from './styles';
 import { useHistory } from 'react-router-dom';
 import PersonDataField from '../PersonDataFIeld';
+import { Person } from '../../types';
 
 interface PersonCardProps {
 	fullData?: boolean;
+	person: Person;
 }
 
 const useStyles = makeStyles(() =>
@@ -21,24 +23,54 @@ const useStyles = makeStyles(() =>
 	})
 );
 
-const PersonCard: React.FC<PersonCardProps> = ({ fullData }) => {
+const PersonCard: React.FC<PersonCardProps> = ({ fullData, person }) => {
 	const classes = useStyles();
 	const history = useHistory();
 
+	const {
+		birthDate,
+		cpf,
+		name,
+		email,
+		gender,
+		nationality,
+		nativeFrom,
+		id,
+	} = person;
+
+	const date = new Date(birthDate);
+
+	const genderFormated = gender === 'MALE' ? 'Male' : 'Female';
+
+	const formatedBirthDate = `${date.getUTCDate()}/${
+		date.getUTCMonth() + 1
+	}/${date.getUTCFullYear()}`;
+
 	const handleViewPerson = () => {
-		history.push(`/view`);
+		history.push(`/view/${id}`);
 	};
 
 	return (
 		<Card className={classes.root}>
-			<CardHeader title="Marco Antonio Amorim Filho" />
+			<CardHeader title={name} />
 			<CardContent>
-				<Typography variant="body2" color="textSecondary" component="p">
-					<PersonDataField title="CPF:" data="075.039.859-09" />
-					<PersonDataField title="Birth Date:" data="20/09/1995" />
+				<Typography variant="body2" color="textSecondary" component="div">
+					<PersonDataField title="CPF:" data={cpf} />
+					<PersonDataField title="Birth Date:" data={formatedBirthDate} />
 
 					{fullData && (
-						<PersonDataField title="Birth Date:" data="20/09/1995" />
+						<>
+							{email && <PersonDataField title="E-mail:" data={email} />}
+							{nationality && (
+								<PersonDataField title="Nationality:" data={nationality} />
+							)}
+							{nativeFrom && (
+								<PersonDataField title="Native From:" data={nativeFrom} />
+							)}
+							{gender && (
+								<PersonDataField title="Gender:" data={genderFormated} />
+							)}
+						</>
 					)}
 				</Typography>
 			</CardContent>

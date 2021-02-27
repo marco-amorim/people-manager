@@ -3,7 +3,7 @@ import { PersonDataFieldContainer } from './styles';
 
 interface PersonDataFieldProps {
 	title: string;
-	data: string;
+	data: string | Date;
 }
 
 const PersonDataField: React.FC<PersonDataFieldProps> = ({ title, data }) => {

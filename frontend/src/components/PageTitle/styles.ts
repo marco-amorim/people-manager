@@ -6,10 +6,10 @@ export const TitleContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 100px;
+	margin-top: 75px;
 `;
 
 export const Title = styled.h2`
 	font-size: 1.75rem;
-  font-weight: 500;
+	font-weight: 500;
 `;

@@ -1,5 +1,6 @@
 package com.softplan.people.manager.controller;
 
+import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.model.Person;
 import com.softplan.people.manager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class PersonController {
             response.put("error", "This CPF already exists in our database");
             return ResponseEntity.ok(response);
         }
+    }
+
+    @GetMapping("/people/{id}")
+    public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Employee does not exist with id: " + id)));
+        return ResponseEntity.ok(person);
     }
 
 }
