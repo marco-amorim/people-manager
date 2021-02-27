@@ -2,8 +2,6 @@ package com.softplan.people.manager.model;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
