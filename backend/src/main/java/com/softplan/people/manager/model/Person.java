@@ -1,5 +1,6 @@
 package com.softplan.people.manager.model;
 
+import com.softplan.people.manager.types.Gender;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -42,12 +43,12 @@ public class Person {
     private Date birthDate;
 
     @Column(name = "gender")
-    private String gender;
+    private Gender gender;
 
     public Person() {
     }
 
-    public Person(String name, String email, String nativeFrom, String nationality, String cpf, Date birthDate, String gender) {
+    public Person(String name, String email, String nativeFrom, String nationality, String cpf, Date birthDate, Gender gender) {
         super();
         this.name = name;
         this.email = email;
@@ -106,11 +107,11 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
