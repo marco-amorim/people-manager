@@ -19,8 +19,8 @@ public class Person {
     private long id;
 
     @Column(name = "name")
-    @NotBlank(message = "Name can not be blank.")
-    @NotNull(message = "Name can not be null.")
+    @NotBlank(message = "{name.not.blank}")
+    @NotNull(message = "{name.not.null}")
     private String name;
 
     @Column(name = "email")
@@ -34,13 +34,13 @@ public class Person {
     private String nationality;
 
     @Column(name = "cpf")
-    @NotBlank(message = "CPF can not be blank.")
-    @NotNull(message = "CPF can not be null.")
-    @CPF(message = "CPF provided is invalid.")
+    @NotBlank(message = "{cpf.not.blank}")
+    @NotNull(message = "{cpf.not.null}")
+    @CPF(message = "{cpf.not.valid}")
     private String cpf;
 
     @Column(name = "birth_date")
-    @NotNull(message = "Birth date can not be null.")
+    @NotNull(message = "{birthDate.not.null}")
     private Date birthDate;
 
     @Column(name = "gender")
