@@ -1,6 +1,7 @@
 package com.softplan.people.manager.model;
 
 import com.softplan.people.manager.types.Gender;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "people")
+@Table(name = "people", uniqueConstraints = @UniqueConstraint(columnNames = "cpf", name = "cpf"))
 public class Person {
 
     @Id
