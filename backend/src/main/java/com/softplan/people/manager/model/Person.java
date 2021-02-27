@@ -1,8 +1,13 @@
 package com.softplan.people.manager.model;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -14,9 +19,12 @@ public class Person {
     private long id;
 
     @Column(name = "name")
+    @NotBlank(message = "Name can not be blank.")
+    @NotNull(message = "Name can not be null.")
     private String name;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @Column(name = "native_from")
@@ -26,9 +34,13 @@ public class Person {
     private String nationality;
 
     @Column(name = "cpf")
+    @NotBlank(message = "CPF can not be blank.")
+    @NotNull(message = "CPF can not be null.")
+    @CPF(message = "CPF provided is invalid.")
     private String cpf;
 
     @Column(name = "birth_date")
+    @NotNull(message = "Birth date can not be null.")
     private Date birthDate;
 
     @Column(name = "gender")

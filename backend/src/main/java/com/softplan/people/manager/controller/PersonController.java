@@ -5,6 +5,7 @@ import com.softplan.people.manager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,7 +22,7 @@ public class PersonController {
     }
 
     @PostMapping("/people")
-    public Person createPerson(@RequestBody Person person) {
+    public Person createPerson(@Valid @RequestBody Person person) {
         return personRepository.save(person);
     }
 
