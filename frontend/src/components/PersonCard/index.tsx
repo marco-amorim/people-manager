@@ -6,36 +6,64 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import { Actions } from './styles';
+import { useHistory } from 'react-router-dom';
+import PersonDataField from '../PersonDataFIeld';
+
+interface PersonCardProps {
+	fullData?: boolean;
+}
 
 const useStyles = makeStyles(() =>
 	createStyles({
 		root: {
-			maxWidth: 345,
+			width: 345,
 		},
 	})
 );
 
-const PersonCard = () => {
+const PersonCard: React.FC<PersonCardProps> = ({ fullData }) => {
 	const classes = useStyles();
+	const history = useHistory();
+
+	const handleViewPerson = () => {
+		history.push(`/view`);
+	};
 
 	return (
 		<Card className={classes.root}>
-			<CardHeader title="Marco Amorim" subheader="Born in 20/09/1995" />
+			<CardHeader title="Marco Antonio Amorim Filho" />
 			<CardContent>
 				<Typography variant="body2" color="textSecondary" component="p">
-					This impressive paella is a perfect party dish and a fun meal to cook
-					together with your guests. Add 1 cup of frozen peas along with the
-					mussels, if you like.
+					<PersonDataField title="CPF:" data="075.039.859-09" />
+					<PersonDataField title="Birth Date:" data="20/09/1995" />
+
+					{fullData && (
+						<PersonDataField title="Birth Date:" data="20/09/1995" />
+					)}
 				</Typography>
 			</CardContent>
 			<Actions disableSpacing>
-				<Button variant="contained">View</Button>
-				<Button variant="contained" color="primary">
-					Edit
-				</Button>
-				<Button variant="contained" color="secondary">
-					Delete
-				</Button>
+				{fullData ? (
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={() => history.push('/')}
+					>
+						Go Back
+					</Button>
+				) : (
+					<>
+						<Button variant="contained" onClick={() => handleViewPerson()}>
+							View
+						</Button>
+						<Button variant="contained" color="primary">
+							Edit
+						</Button>
+						<Button variant="contained" color="secondary">
+							Delete
+						</Button>
+					</>
+				)}
 			</Actions>
 		</Card>
 	);
