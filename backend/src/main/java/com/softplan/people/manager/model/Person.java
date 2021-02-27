@@ -1,13 +1,13 @@
 package com.softplan.people.manager.model;
 
 import com.softplan.people.manager.types.Gender;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -37,6 +37,7 @@ public class Person {
     @NotBlank(message = "{cpf.not.blank}")
     @NotNull(message = "{cpf.not.null}")
     @CPF(message = "{cpf.not.valid}")
+    @Size(min = 14, message = "{cpf.size}")
     private String cpf;
 
     @Column(name = "birth_date")
