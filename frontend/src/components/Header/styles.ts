@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { buttonStyles } from '../../assets/styles/button';
 
 export const HeaderContainer = styled.nav`
 	width: 100%;
@@ -26,27 +27,10 @@ export const HeaderTitle = styled(Link)`
 `;
 
 export const HeaderButton = styled.button`
-	outline: none;
-	border: none;
-	border-radius: 4px;
-	background-color: var(--purple);
-	color: var(--white);
-	padding: 10px 20px;
+	${buttonStyles}
 	max-width: 185px;
-	height: 50px;
 	position: absolute;
 	right: 0;
-	cursor: pointer;
-	font-size: 1rem;
-	box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-		0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-	transition: color 0.3s ease-in-out;
-	transition: background-color 0.3s ease-in-out;
-
-	&:hover {
-		background-color: var(--green);
-		color: var(--black);
-	}
 
 	@media (max-width: 767px) {
 		position: unset;

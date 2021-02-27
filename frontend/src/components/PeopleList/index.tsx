@@ -3,7 +3,12 @@ import PageTitle from '../../components/PageTitle';
 import PeopleService from '../../services/PeopleService';
 import { Person } from '../../types';
 import PersonCard from '../PersonCard';
-import { PeopleListContainer, PersonItem } from './styles';
+import {
+	NewPersonButton,
+	NewPersonButtonContainer,
+	PeopleListContainer,
+	PersonItem,
+} from './styles';
 
 const PeopleList = () => {
 	const [people, setPeople] = useState<Person[]>([]);
@@ -17,6 +22,9 @@ const PeopleList = () => {
 	return (
 		<>
 			<PageTitle title="People List" />
+			<NewPersonButtonContainer>
+				<NewPersonButton>New Person</NewPersonButton>
+			</NewPersonButtonContainer>
 			<PeopleListContainer>
 				{people.map((person, index) => {
 					return (
@@ -29,4 +37,5 @@ const PeopleList = () => {
 		</>
 	);
 };
+
 export default PeopleList;
