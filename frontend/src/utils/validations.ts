@@ -1,5 +1,9 @@
 export const checkIfCpfExists = (strCpf: string) => {
-	strCpf = strCpf.replaceAll('.', '').replaceAll('-', '');
+	if (strCpf) {
+		strCpf = strCpf.replaceAll('.', '').replaceAll('-', '');
+	} else {
+		return true;
+	}
 	let sum;
 	let rest;
 	sum = 0;
@@ -21,4 +25,18 @@ export const checkIfCpfExists = (strCpf: string) => {
 	if (rest === 10 || rest === 11) rest = 0;
 	if (rest !== parseInt(strCpf.substring(10, 11))) return false;
 	return true;
+};
+
+export const validateBirthDate = (birthDate: string) => {
+	if (birthDate) {
+		const birthYear = Number(birthDate.substr(0, 4));
+
+		if (birthYear > 2010) {
+			return false;
+		} else {
+			return true;
+		}
+	} else {
+		return true;
+	}
 };

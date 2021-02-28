@@ -7,7 +7,7 @@ import { FormButton, FormikForm, FormField, FormActions } from './styles';
 import { useHistory } from 'react-router-dom';
 import { FormControl, MenuItem, TextField } from '@material-ui/core';
 import { Select } from 'formik-material-ui';
-import { checkIfCpfExists } from '../../utils/validateCpf';
+import { checkIfCpfExists, validateBirthDate } from '../../utils/validations';
 
 interface PersonFormProps {
 	onSubmit: (values: FormikValues) => void;
@@ -57,6 +57,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			.test('alphabets', 'Numbers are not allowed in here', (value) => {
 				return /^[A-Za-z]+$/.test(value!);
 			}),
+
 		cpf: Yup.string()
 			.required('CPF is required')
 			.test(
@@ -69,10 +70,20 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			.test('cpf', 'This CPF does not exist', (value) => {
 				return checkIfCpfExists(value!);
 			}),
+
 		birthDate: Yup.string()
+			.length(10, 'Invalid date format')
 			.required('Birth Date is required')
-			.length(10, 'Invalid date format'),
+			.test(
+				'birthdate',
+				'Invalid birth date, you need to be born in 2010 or before to use this application',
+				(value) => {
+					return validateBirthDate(value!);
+				}
+			),
+
 		email: Yup.string().email('Invalid e-mail format'),
+
 		nativeFrom: Yup.string().test(
 			'alphabets',
 			'Numbers are not allowed in here',
@@ -80,6 +91,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 				return /^[A-Za-z]+$/.test(value!);
 			}
 		),
+
 		nationality: Yup.string().test(
 			'alphabets',
 			'Numbers are not allowed in here',
