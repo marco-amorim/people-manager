@@ -23,9 +23,15 @@ export const FormField = styled.div`
 	}
 `;
 
-export const SubmitButton = styled(Button)`
+export const FormButton = styled(Button)`
 	&& {
 		${buttonStyles}
 		margin: 40px auto 0px auto;
 	}
+`;
+
+export const FormActions = styled.div`
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 `;

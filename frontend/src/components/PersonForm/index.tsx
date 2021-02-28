@@ -1,19 +1,31 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { FormikValues, Formik } from 'formik';
+import { FormikValues, Formik, Field } from 'formik';
 import FormikField from './FormikField';
 
-import { SubmitButton, FormikForm, FormField } from './styles';
+import { FormButton, FormikForm, FormField, FormActions } from './styles';
+import { useHistory } from 'react-router-dom';
+import { FormControl, MenuItem, TextField } from '@material-ui/core';
+import { Select } from 'formik-material-ui';
 
 interface PersonFormProps {
-	onSubmit: (values: FormikValues) => void;
+	onSubmit: (values: FormikValues, seila: any) => void;
 	initialName?: string;
 	initialBirthDate?: string;
 	initialCpf?: string;
 	initialEmail?: string;
 	initialGender?: string;
 	initialNativeFrom?: string;
-	initianNaturality?: string;
+	initialNationality?: string;
+}
+interface FormValues {
+	birthDate: string;
+	name: string;
+	cpf: string;
+	email: string;
+	gender: string;
+	nativeFrom: string;
+	nationality: string;
 }
 
 const PersonForm: React.FC<PersonFormProps> = ({
@@ -23,18 +35,10 @@ const PersonForm: React.FC<PersonFormProps> = ({
 	initialEmail,
 	initialGender,
 	initialNativeFrom,
-	initianNaturality,
+	initialNationality,
 	onSubmit,
 }) => {
-	interface FormValues {
-		birthDate: string;
-		name: string;
-		cpf: string;
-		email: string;
-		gender: string;
-		nativeFrom: string;
-		naturality: string;
-	}
+	const history = useHistory();
 
 	const initialValues: FormValues = {
 		birthDate: initialBirthDate || '',
@@ -43,7 +47,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 		email: initialEmail || '',
 		gender: initialGender || '',
 		nativeFrom: initialNativeFrom || '',
-		naturality: initianNaturality || '',
+		nationality: initialNationality || '',
 	};
 
 	const PersonValidationSchema = Yup.object().shape({
@@ -52,9 +56,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			.test('alphabets', 'Numbers are not allowed in here', (value) => {
 				return /^[A-Za-z]+$/.test(value!);
 			}),
-		cpf: Yup.string()
-			.length(14, 'CPF is incomplete')
-			.required('CPF is required'),
+		cpf: Yup.string().length(14, 'CPF is invalid').required('CPF is required'),
 		birthDate: Yup.string()
 			.required('Birth Date is required')
 			.length(10, 'Invalid date format'),
@@ -66,7 +68,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 				return /^[A-Za-z]+$/.test(value!);
 			}
 		),
-		naturality: Yup.string().test(
+		nationality: Yup.string().test(
 			'alphabets',
 			'Numbers are not allowed in here',
 			(value) => {
@@ -75,8 +77,8 @@ const PersonForm: React.FC<PersonFormProps> = ({
 		),
 	});
 
-	const handleSubmit = (values: FormikValues) => {
-		onSubmit(values);
+	const handleSubmit = (values: FormikValues, seila: any) => {
+		onSubmit(values, seila);
 	};
 
 	const renderForm = () => {
@@ -91,12 +93,24 @@ const PersonForm: React.FC<PersonFormProps> = ({
 						<FormikForm>
 							<FormField>
 								<label htmlFor="name">Name: *</label>
-								<FormikField id="name" name="name" required />
+								<FormikField
+									component={TextField}
+									id="name"
+									name="name"
+									placeholder="Type your Name"
+									required
+								/>
 							</FormField>
 
 							<FormField>
 								<label htmlFor="cpf">CPF: *</label>
-								<FormikField id="cpf" name="cpf" required />
+								<FormikField
+									component={TextField}
+									id="cpf"
+									name="cpf"
+									placeholder="Type your CPF"
+									required
+								/>
 							</FormField>
 
 							<FormField>
@@ -105,31 +119,65 @@ const PersonForm: React.FC<PersonFormProps> = ({
 									id="birthDate"
 									name="birthDate"
 									type="date"
+									component={TextField}
 									required
 								/>
 							</FormField>
 
 							<FormField>
 								<label htmlFor="email">E-mail:</label>
-								<FormikField id="email" name="email" />
+								<FormikField
+									component={TextField}
+									id="email"
+									name="email"
+									placeholder="Type your E-mail"
+								/>
 							</FormField>
 
 							<FormField>
-								<label htmlFor="gender">Gender:</label>
-								<FormikField id="gender" name="gender" type="select" />
+								<FormControl>
+									<label htmlFor="gender">Gender:</label>
+									<Field
+										component={Select}
+										name="gender"
+										id="gender"
+										displayEmpty
+									>
+										<MenuItem value="" selected disabled>
+											Choose your gender
+										</MenuItem>
+										<MenuItem value="MALE">Male</MenuItem>
+										<MenuItem value="FEMALE">Female</MenuItem>
+									</Field>
+								</FormControl>
 							</FormField>
 
 							<FormField>
 								<label htmlFor="nativeFrom">Native From:</label>
-								<FormikField id="nativeFrom" name="nativeFrom" />
+								<FormikField
+									component={TextField}
+									id="nativeFrom"
+									name="nativeFrom"
+									placeholder="Type your Naturality"
+								/>
 							</FormField>
 
 							<FormField>
 								<label htmlFor="naturality">Naturality:</label>
-								<FormikField id="naturality" name="naturality" />
+								<FormikField
+									component={TextField}
+									id="nationality"
+									name="nationality"
+									placeholder="Type your Nationality"
+								/>
 							</FormField>
 
-							<SubmitButton type="submit">Submit</SubmitButton>
+							<FormActions>
+								<FormButton type="submit">Submit</FormButton>
+								<FormButton onClick={() => history.push('/')}>
+									Cancel
+								</FormButton>
+							</FormActions>
 						</FormikForm>
 					);
 				}}

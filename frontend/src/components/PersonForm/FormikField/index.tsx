@@ -1,12 +1,13 @@
 import React from 'react';
 import { ErrorMessage, Field } from 'formik';
-import { TextField } from '@material-ui/core';
 
 interface FormikFieldProps {
 	name: string;
 	id?: string;
 	type?: string;
 	required?: boolean;
+	component: Function;
+	placeholder?: string;
 }
 
 const FormikField: React.FC<FormikFieldProps> = ({
@@ -14,16 +15,19 @@ const FormikField: React.FC<FormikFieldProps> = ({
 	id,
 	type = 'text',
 	required = false,
+	component,
+	placeholder,
 }) => {
 	return (
 		<Field
 			required={required}
-			as={TextField}
+			as={component}
 			autoComplete="off"
 			id={id}
 			name={name}
 			type={type}
 			helperText={<ErrorMessage name={name} />}
+			placeholder={placeholder}
 		/>
 	);
 };
