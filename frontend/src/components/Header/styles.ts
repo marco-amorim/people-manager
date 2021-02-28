@@ -37,3 +37,22 @@ export const HeaderButton = styled.button`
 		margin-top: 25px;
 	}
 `;
+
+export const HeaderLink = styled(Link)`
+	position: absolute;
+	left: 0;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: var(--black);
+	transition: color 0.3s ease-in-out;
+
+	:hover {
+		color: var(--purple);
+		text-decoration: underline;
+	}
+
+	@media (max-width: 767px) {
+		position: unset;
+		margin-top: 25px;
+	}
+`;

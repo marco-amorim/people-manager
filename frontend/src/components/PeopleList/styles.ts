@@ -18,7 +18,12 @@ export const PersonItem = styled.li`
 
 export const NewPersonButton = styled.button`
 	${buttonStyles}
-	max-width: 150px;
+	display: flex;
+	align-items: center;
+
+	svg {
+		margin-left: 5px;
+	}
 `;
 
 export const NewPersonButtonContainer = styled.div`

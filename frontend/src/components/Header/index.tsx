@@ -1,5 +1,10 @@
 import React from 'react';
-import { HeaderButton, HeaderContainer, HeaderTitle } from './styles';
+import {
+	HeaderButton,
+	HeaderContainer,
+	HeaderLink,
+	HeaderTitle,
+} from './styles';
 
 const Header = () => {
 	return (
@@ -7,6 +12,7 @@ const Header = () => {
 			<HeaderTitle to="/">
 				People<span>Manager</span>
 			</HeaderTitle>
+			<HeaderLink to="/source">Source Code</HeaderLink>
 			<HeaderButton>Sign in with Google</HeaderButton>
 		</HeaderContainer>
 	);

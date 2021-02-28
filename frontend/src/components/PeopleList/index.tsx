@@ -1,3 +1,4 @@
+import { PersonAdd } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
@@ -42,7 +43,10 @@ const PeopleList = () => {
 		<>
 			<PageTitle title="People List" />
 			<NewPersonButtonContainer>
-				<NewPersonButton onClick={handleNewPerson}>New Person</NewPersonButton>
+				<NewPersonButton onClick={handleNewPerson}>
+					New Person
+					<PersonAdd />
+				</NewPersonButton>
 			</NewPersonButtonContainer>
 			<PeopleListContainer>
 				{people.map((person, index) => {
