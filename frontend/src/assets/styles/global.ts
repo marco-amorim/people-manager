@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     --white: #FFFFFF;
     --black: #333333;
     --green: #55DAC6;
+    --error: #f44336;
     
     padding-right: 15px;
     padding-left: 15px;

@@ -39,6 +39,16 @@ const PeopleList = () => {
 		}
 	};
 
+	const renderPeopleList = () => {
+		return people.map((person, index) => {
+			return (
+				<PersonItem key={index}>
+					<PersonCard person={person} deleteFunction={handleDeletePerson} />
+				</PersonItem>
+			);
+		});
+	};
+
 	return (
 		<>
 			<PageTitle title="People List" />
@@ -48,15 +58,7 @@ const PeopleList = () => {
 					<PersonAdd />
 				</NewPersonButton>
 			</NewPersonButtonContainer>
-			<PeopleListContainer>
-				{people.map((person, index) => {
-					return (
-						<PersonItem key={index}>
-							<PersonCard person={person} deleteFunction={handleDeletePerson} />
-						</PersonItem>
-					);
-				})}
-			</PeopleListContainer>
+			<PeopleListContainer>{renderPeopleList()}</PeopleListContainer>
 		</>
 	);
 };
