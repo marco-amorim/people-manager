@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 import PeopleService from '../../services/PeopleService';
 import { Person } from '../../types';
@@ -12,6 +13,7 @@ import {
 
 const PeopleList = () => {
 	const [people, setPeople] = useState<Person[]>([]);
+	const history = useHistory();
 
 	useEffect(() => {
 		PeopleService.getPeople().then((res) => {
@@ -19,11 +21,15 @@ const PeopleList = () => {
 		});
 	}, []);
 
+	const handleNewPerson = () => {
+		history.push('/person/new');
+	};
+
 	return (
 		<>
 			<PageTitle title="People List" />
 			<NewPersonButtonContainer>
-				<NewPersonButton>New Person</NewPersonButton>
+				<NewPersonButton onClick={handleNewPerson}>New Person</NewPersonButton>
 			</NewPersonButtonContainer>
 			<PeopleListContainer>
 				{people.map((person, index) => {

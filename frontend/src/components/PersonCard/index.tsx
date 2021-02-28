@@ -47,7 +47,7 @@ const PersonCard: React.FC<PersonCardProps> = ({ fullData, person }) => {
 	}/${date.getUTCFullYear()}`;
 
 	const handleViewPerson = () => {
-		history.push(`/view/${id}`);
+		history.push(`/person/view/${id}`);
 	};
 
 	return (

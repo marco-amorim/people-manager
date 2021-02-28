@@ -42,8 +42,18 @@ public class PersonController {
 
     @GetMapping("/people/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Employee does not exist with id: " + id)));
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
         return ResponseEntity.ok(person);
+    }
+
+    @DeleteMapping("/people/{id}")
+    public ResponseEntity<Map<String, Boolean>> deletePerson(@PathVariable Long id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
+
+        personRepository.delete(person);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -9,7 +9,7 @@ export const buttonStyles = css`
 	padding: 10px 20px;
 	height: 50px;
 	cursor: pointer;
-	font-size: 0.95rem;
+	font-size: 0.97rem;
 	font-weight: bold;
 	transition: color 0.3s ease-in-out;
 	transition: background-color 0.3s ease-in-out;
