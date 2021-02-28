@@ -76,7 +76,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			.required('Birth Date is required')
 			.test(
 				'birthdate',
-				'Invalid birth date, you need to be born in 2010 or before to use this application',
+				'Invalid birth date, the person needs to be born in 2010 or before',
 				(value) => {
 					return validateBirthDate(value!);
 				}
