@@ -13,6 +13,7 @@ import { Person } from '../../types';
 interface PersonCardProps {
 	fullData?: boolean;
 	person: Person;
+	deleteFunction?: (personId: Number) => void;
 }
 
 const useStyles = makeStyles(() =>
@@ -23,7 +24,11 @@ const useStyles = makeStyles(() =>
 	})
 );
 
-const PersonCard: React.FC<PersonCardProps> = ({ fullData, person }) => {
+const PersonCard: React.FC<PersonCardProps> = ({
+	fullData,
+	person,
+	deleteFunction,
+}) => {
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -48,6 +53,10 @@ const PersonCard: React.FC<PersonCardProps> = ({ fullData, person }) => {
 
 	const handleViewPerson = () => {
 		history.push(`/person/view/${id}`);
+	};
+
+	const handleDeletePerson = (personId: Number) => {
+		deleteFunction!(personId);
 	};
 
 	return (
@@ -91,7 +100,11 @@ const PersonCard: React.FC<PersonCardProps> = ({ fullData, person }) => {
 						<Button variant="contained" color="primary">
 							Edit
 						</Button>
-						<Button variant="contained" color="secondary">
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={() => handleDeletePerson(id)}
+						>
 							Delete
 						</Button>
 					</>

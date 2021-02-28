@@ -25,6 +25,19 @@ const PeopleList = () => {
 		history.push('/person/new');
 	};
 
+	const handleDeletePerson = (personId: Number) => {
+		try {
+			PeopleService.deletePerson(personId).then(() => {
+				setPeople(people.filter((person) => person.id !== personId));
+			});
+		} catch (error) {
+			console.log(error);
+			alert(
+				'Sorry, we are having trouble trying to delete this Person, try again later.'
+			);
+		}
+	};
+
 	return (
 		<>
 			<PageTitle title="People List" />
@@ -35,7 +48,7 @@ const PeopleList = () => {
 				{people.map((person, index) => {
 					return (
 						<PersonItem key={index}>
-							<PersonCard person={person} />
+							<PersonCard person={person} deleteFunction={handleDeletePerson} />
 						</PersonItem>
 					);
 				})}
