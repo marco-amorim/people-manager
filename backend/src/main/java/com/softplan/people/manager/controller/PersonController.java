@@ -5,7 +5,6 @@ import com.softplan.people.manager.model.Person;
 import com.softplan.people.manager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +38,23 @@ public class PersonController {
             response.put("error", "This CPF already exists in our database");
             return ResponseEntity.status(409).body(response);
         }
+    }
+
+    @PutMapping("/people/{id}")
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @Valid @RequestBody Person newPerson) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
+
+        person.setName(newPerson.getName());
+        person.setEmail(newPerson.getEmail());
+        person.setBirthDate(newPerson.getBirthDate());
+        person.setCpf(newPerson.getCpf());
+        person.setGender(newPerson.getGender());
+        person.setNationality(newPerson.getNationality());
+        person.setNativeFrom(newPerson.getNativeFrom());
+
+        Person updatedPerson = personRepository.save(person);
+
+        return ResponseEntity.status(200).body(updatedPerson);
     }
 
     @GetMapping("/people/{id}")
