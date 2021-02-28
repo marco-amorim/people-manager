@@ -8,6 +8,7 @@ interface FormikFieldProps {
 	required?: boolean;
 	component: Function;
 	placeholder?: string;
+	inputProps?: any;
 }
 
 const FormikField: React.FC<FormikFieldProps> = ({
@@ -17,6 +18,7 @@ const FormikField: React.FC<FormikFieldProps> = ({
 	required = false,
 	component,
 	placeholder,
+	inputProps,
 }) => {
 	return (
 		<Field
@@ -28,6 +30,7 @@ const FormikField: React.FC<FormikFieldProps> = ({
 			type={type}
 			helperText={<ErrorMessage name={name} />}
 			placeholder={placeholder}
+			InputProps={inputProps}
 		/>
 	);
 };

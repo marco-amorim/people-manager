@@ -7,9 +7,10 @@ import { FormButton, FormikForm, FormField, FormActions } from './styles';
 import { useHistory } from 'react-router-dom';
 import { FormControl, MenuItem, TextField } from '@material-ui/core';
 import { Select } from 'formik-material-ui';
+import { checkIfCpfExists } from '../../utils/validateCpf';
 
 interface PersonFormProps {
-	onSubmit: (values: FormikValues, seila: any) => void;
+	onSubmit: (values: FormikValues) => void;
 	initialName?: string;
 	initialBirthDate?: string;
 	initialCpf?: string;
@@ -56,7 +57,18 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			.test('alphabets', 'Numbers are not allowed in here', (value) => {
 				return /^[A-Za-z]+$/.test(value!);
 			}),
-		cpf: Yup.string().length(14, 'CPF is invalid').required('CPF is required'),
+		cpf: Yup.string()
+			.required('CPF is required')
+			.test(
+				'cpf',
+				'Invalid CPF, please follow the pattern: 000.000.000-00',
+				(value) => {
+					return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value!);
+				}
+			)
+			.test('cpf', 'This CPF does not exist', (value) => {
+				return checkIfCpfExists(value!);
+			}),
 		birthDate: Yup.string()
 			.required('Birth Date is required')
 			.length(10, 'Invalid date format'),
@@ -77,8 +89,8 @@ const PersonForm: React.FC<PersonFormProps> = ({
 		),
 	});
 
-	const handleSubmit = (values: FormikValues, seila: any) => {
-		onSubmit(values, seila);
+	const handleSubmit = (values: FormikValues) => {
+		onSubmit(values);
 	};
 
 	const renderForm = () => {
