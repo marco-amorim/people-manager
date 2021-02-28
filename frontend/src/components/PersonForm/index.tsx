@@ -163,7 +163,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 							</FormField>
 
 							<FormField>
-								<label htmlFor="naturality">Naturality:</label>
+								<label htmlFor="nationality">Nationality:</label>
 								<FormikField
 									component={TextField}
 									id="nationality"
