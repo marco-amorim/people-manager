@@ -5,6 +5,7 @@ import com.softplan.people.manager.model.Person;
 import com.softplan.people.manager.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,18 +33,18 @@ public class PersonController {
             personRepository.save(person);
             Map<String, String> response = new HashMap<>();
             response.put("info", "Person created successfully");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(201).body(response);
         } catch (DataIntegrityViolationException ex) {
             Map<String, String> response = new HashMap<>();
             response.put("error", "This CPF already exists in our database");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(409).body(response);
         }
     }
 
     @GetMapping("/people/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
-        return ResponseEntity.ok(person);
+        return ResponseEntity.status(200).body(person);
     }
 
     @DeleteMapping("/people/{id}")
@@ -53,7 +54,7 @@ public class PersonController {
         personRepository.delete(person);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(202).body(response);
     }
 
 }

@@ -3,10 +3,37 @@ import PageTitle from '../PageTitle';
 import PersonForm from '../PersonForm';
 import { NewPersonContainer } from './styles';
 import { FormikValues } from 'formik';
+import PeopleService from '../../services/PeopleService';
+import { Person } from '../../types';
+import { useHistory } from 'react-router-dom';
 
 const NewPerson = () => {
+	const history = useHistory();
+
 	const handleSubmit = (values: FormikValues) => {
-		alert(JSON.stringify(values));
+		const {
+			name,
+			birthDate,
+			cpf,
+			gender,
+			email,
+			nativeFrom,
+			nationality,
+		} = values;
+
+		const newPerson: Person = {
+			name,
+			birthDate,
+			cpf,
+			gender,
+			email,
+			nativeFrom,
+			nationality,
+		};
+
+		PeopleService.createPerson(newPerson).then(() => {
+			history.push('/');
+		});
 	};
 
 	return (

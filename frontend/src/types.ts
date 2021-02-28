@@ -1,10 +1,10 @@
 export interface Person {
-	id: Number;
 	name: string;
+	birthDate: Date;
+	cpf: string;
+	id?: Number;
 	gender?: string;
 	email?: string;
-	birthDate: Date;
 	nativeFrom?: string;
 	nationality?: string;
-	cpf: string;
 }

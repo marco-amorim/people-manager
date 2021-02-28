@@ -24,7 +24,7 @@ interface FormValues {
 	name: string;
 	cpf: string;
 	email: string;
-	gender: string;
+	gender: string | Number;
 	nativeFrom: string;
 	nationality: string;
 }
@@ -46,7 +46,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 		name: initialName || '',
 		cpf: initialCpf || '',
 		email: initialEmail || '',
-		gender: initialGender || '',
+		gender: initialGender || 0,
 		nativeFrom: initialNativeFrom || '',
 		nationality: initialNationality || '',
 	};
@@ -167,7 +167,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 										id="gender"
 										displayEmpty
 									>
-										<MenuItem value="" selected disabled>
+										<MenuItem value={0} selected disabled>
 											Choose your gender
 										</MenuItem>
 										<MenuItem value="MALE">Male</MenuItem>

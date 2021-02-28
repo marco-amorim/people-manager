@@ -103,7 +103,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
 						<Button
 							variant="contained"
 							color="secondary"
-							onClick={() => handleDeletePerson(id)}
+							onClick={() => handleDeletePerson(id!)}
 						>
 							Delete
 						</Button>
