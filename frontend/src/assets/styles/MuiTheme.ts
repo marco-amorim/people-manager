@@ -25,6 +25,7 @@ export const MuiTheme = createMuiTheme({
 		},
 		MuiFormLabel: {
 			root: {
+				fontFamily: 'Nunito Sans',
 				'&$focused': {
 					color: 'var(--purple)',
 				},

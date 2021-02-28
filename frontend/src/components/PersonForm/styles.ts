@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import { Form, Field } from 'formik';
+import { Form } from 'formik';
 import { buttonStyles } from '../../assets/styles/button';
 
 export const FormikForm = styled(Form)`
@@ -14,9 +14,12 @@ export const FormikForm = styled(Form)`
 	}
 `;
 
-export const FormField = styled(Field)`
+export const FormField = styled.div`
+	display: flex;
+	flex-direction: column;
+
 	:not(:last-child) {
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
 `;
 

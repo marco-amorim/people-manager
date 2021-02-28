@@ -4,14 +4,14 @@ import { TextField } from '@material-ui/core';
 
 interface FormikFieldProps {
 	name: string;
-	label: string;
+	id?: string;
 	type?: string;
 	required?: boolean;
 }
 
 const FormikField: React.FC<FormikFieldProps> = ({
 	name,
-	label,
+	id,
 	type = 'text',
 	required = false,
 }) => {
@@ -20,7 +20,7 @@ const FormikField: React.FC<FormikFieldProps> = ({
 			required={required}
 			as={TextField}
 			autoComplete="off"
-			label={label}
+			id={id}
 			name={name}
 			type={type}
 			helperText={<ErrorMessage name={name} />}
