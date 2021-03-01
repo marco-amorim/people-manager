@@ -55,7 +55,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 		name: Yup.string()
 			.required('Name is required')
 			.test('alphabets', 'Numbers are not allowed in here', (value) => {
-				return /^[A-Za-z]+$/.test(value!);
+				return /^[A-Za-z ]+$/.test(value!);
 			}),
 
 		cpf: Yup.string()
@@ -88,7 +88,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			'alphabets',
 			'Numbers are not allowed in here',
 			(value) => {
-				return /^[A-Za-z]+$/.test(value!);
+				return /^[A-Za-z ]+$/.test(value!);
 			}
 		),
 
@@ -96,7 +96,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 			'alphabets',
 			'Numbers are not allowed in here',
 			(value) => {
-				return /^[A-Za-z]+$/.test(value!);
+				return /^[A-Za-z ]+$/.test(value!);
 			}
 		),
 	});
