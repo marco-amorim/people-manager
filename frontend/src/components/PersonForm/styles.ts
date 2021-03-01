@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { Form } from 'formik';
-import { buttonStyles } from '../../assets/styles/button';
+import { buttonStyles } from '../../assets/styles/utils';
 
 export const FormikForm = styled(Form)`
 	margin: 3rem 0;

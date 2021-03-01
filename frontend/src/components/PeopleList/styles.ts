@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { buttonStyles } from '../../assets/styles/button';
+import { buttonStyles, containerStyles } from '../../assets/styles/utils';
 
 export const PeopleListContainer = styled.ul`
 	display: flex;
@@ -27,8 +27,5 @@ export const NewPersonButton = styled.button`
 `;
 
 export const NewPersonButtonContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 40px;
+	${containerStyles}
 `;

@@ -22,3 +22,10 @@ export const buttonStyles = css`
 		color: var(--black);
 	}
 `;
+
+export const containerStyles = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 40px;
+`;

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
+import { containerStyles } from '../../assets/styles/utils';
 
 export const NewPersonContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 40px;
+	${containerStyles}
 `;

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { buttonStyles } from '../../assets/styles/button';
+import { buttonStyles } from '../../assets/styles/utils';
 
 export const HeaderContainer = styled.nav`
 	width: 100%;
