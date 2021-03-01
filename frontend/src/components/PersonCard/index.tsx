@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -9,6 +9,7 @@ import { Actions } from './styles';
 import { useHistory } from 'react-router-dom';
 import PersonDataField from '../PersonDataFIeld';
 import { Person } from '../../types';
+import ConfirmModal from '../ConfirmModal';
 
 interface PersonCardProps {
 	fullData?: boolean;
@@ -31,6 +32,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
 }) => {
 	const classes = useStyles();
 	const history = useHistory();
+	const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
 	const {
 		birthDate,
@@ -59,66 +61,73 @@ const PersonCard: React.FC<PersonCardProps> = ({
 		history.push(`/person/edit/${id}`);
 	};
 
-	const handleDeletePerson = (personId: Number) => {
-		deleteFunction!(personId);
-	};
-
 	return (
-		<Card className={classes.root}>
-			<CardHeader title={name} />
-			<CardContent>
-				<Typography variant="body2" color="textSecondary" component="div">
-					<PersonDataField title="CPF:" data={cpf} />
-					<PersonDataField title="Birth Date:" data={formatedBirthDate} />
+		<>
+			{showDeleteModal && (
+				<ConfirmModal
+					description="Are you sure you want to delete this Person?"
+					title="Delete Person"
+					isOpen={showDeleteModal}
+					onDismiss={() => setShowDeleteModal(false)}
+					onConfirm={() => deleteFunction!(id!)}
+				/>
+			)}
+			<Card className={classes.root}>
+				<CardHeader title={name} />
+				<CardContent>
+					<Typography variant="body2" color="textSecondary" component="div">
+						<PersonDataField title="CPF:" data={cpf} />
+						<PersonDataField title="Birth Date:" data={formatedBirthDate} />
 
-					{fullData && (
+						{fullData && (
+							<>
+								{email && <PersonDataField title="E-mail:" data={email} />}
+								{nationality && (
+									<PersonDataField title="Nationality:" data={nationality} />
+								)}
+								{nativeFrom && (
+									<PersonDataField title="Native From:" data={nativeFrom} />
+								)}
+								{gender && (
+									<PersonDataField title="Gender:" data={genderFormated} />
+								)}
+							</>
+						)}
+					</Typography>
+				</CardContent>
+				<Actions disableSpacing>
+					{fullData ? (
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => history.push('/')}
+						>
+							Go Back
+						</Button>
+					) : (
 						<>
-							{email && <PersonDataField title="E-mail:" data={email} />}
-							{nationality && (
-								<PersonDataField title="Nationality:" data={nationality} />
-							)}
-							{nativeFrom && (
-								<PersonDataField title="Native From:" data={nativeFrom} />
-							)}
-							{gender && (
-								<PersonDataField title="Gender:" data={genderFormated} />
-							)}
+							<Button variant="contained" onClick={() => handleViewPerson()}>
+								View
+							</Button>
+							<Button
+								variant="contained"
+								onClick={() => handleEditPerson()}
+								color="primary"
+							>
+								Edit
+							</Button>
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={() => setShowDeleteModal(true)}
+							>
+								Delete
+							</Button>
 						</>
 					)}
-				</Typography>
-			</CardContent>
-			<Actions disableSpacing>
-				{fullData ? (
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={() => history.push('/')}
-					>
-						Go Back
-					</Button>
-				) : (
-					<>
-						<Button variant="contained" onClick={() => handleViewPerson()}>
-							View
-						</Button>
-						<Button
-							variant="contained"
-							onClick={() => handleEditPerson()}
-							color="primary"
-						>
-							Edit
-						</Button>
-						<Button
-							variant="contained"
-							color="secondary"
-							onClick={() => handleDeletePerson(id!)}
-						>
-							Delete
-						</Button>
-					</>
-				)}
-			</Actions>
-		</Card>
+				</Actions>
+			</Card>
+		</>
 	);
 };
 

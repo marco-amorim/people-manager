@@ -31,5 +31,10 @@ export const MuiTheme = createMuiTheme({
 				},
 			},
 		},
+		MuiButton: {
+			textPrimary: {
+				color: 'var(--purple)',
+			},
+		},
 	},
 });
