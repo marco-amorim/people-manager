@@ -44,9 +44,17 @@ const EditPerson = () => {
 			nationality,
 		};
 
-		PeopleService.updatePerson(personId, newPerson).then(() => {
-			history.push('/');
-		});
+		PeopleService.updatePerson(personId, newPerson)
+			.then((res) => {
+				const { info } = res.data;
+				alert(info);
+				history.push('/');
+			})
+			.catch(() => {
+				alert(
+					'Either this CPF already exists in our database or our servers are down, please try again'
+				);
+			});
 	};
 
 	const renderForm = () => {

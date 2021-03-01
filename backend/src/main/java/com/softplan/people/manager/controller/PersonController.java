@@ -41,20 +41,29 @@ public class PersonController {
     }
 
     @PutMapping("/people/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @Valid @RequestBody Person newPerson) {
+    public ResponseEntity<Map<String, String>> updatePerson(@PathVariable Long id, @Valid @RequestBody Person newPerson) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
 
-        person.setName(newPerson.getName());
-        person.setEmail(newPerson.getEmail());
-        person.setBirthDate(newPerson.getBirthDate());
-        person.setCpf(newPerson.getCpf());
-        person.setGender(newPerson.getGender());
-        person.setNationality(newPerson.getNationality());
-        person.setNativeFrom(newPerson.getNativeFrom());
+        try {
+            person.setName(newPerson.getName());
+            person.setEmail(newPerson.getEmail());
+            person.setBirthDate(newPerson.getBirthDate());
+            person.setCpf(newPerson.getCpf());
+            person.setGender(newPerson.getGender());
+            person.setNationality(newPerson.getNationality());
+            person.setNativeFrom(newPerson.getNativeFrom());
 
-        Person updatedPerson = personRepository.save(person);
+            personRepository.save(person);
+            Map<String, String> response = new HashMap<>();
+            response.put("info", "Person updated successfully");
+            return ResponseEntity.status(200).body(response);
+        } catch (DataIntegrityViolationException ex) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "This CPF already exists in our database");
+            return ResponseEntity.status(409).body(response);
+        }
 
-        return ResponseEntity.status(200).body(updatedPerson);
+
     }
 
     @GetMapping("/people/{id}")
