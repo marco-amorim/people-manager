@@ -27,16 +27,15 @@ const PeopleList = () => {
 	};
 
 	const handleDeletePerson = (personId: Number) => {
-		try {
-			PeopleService.deletePerson(personId).then(() => {
+		PeopleService.deletePerson(personId)
+			.then(() => {
 				setPeople(people.filter((person) => person.id !== personId));
+			})
+			.catch(() => {
+				alert(
+					'Sorry, we are having trouble trying to delete this Person, try again later.'
+				);
 			});
-		} catch (error) {
-			console.log(error);
-			alert(
-				'Sorry, we are having trouble trying to delete this Person, try again later.'
-			);
-		}
 	};
 
 	const renderPeopleList = () => {

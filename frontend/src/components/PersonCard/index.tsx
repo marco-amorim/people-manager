@@ -55,6 +55,10 @@ const PersonCard: React.FC<PersonCardProps> = ({
 		history.push(`/person/view/${id}`);
 	};
 
+	const handleEditPerson = () => {
+		history.push(`/person/edit/${id}`);
+	};
+
 	const handleDeletePerson = (personId: Number) => {
 		deleteFunction!(personId);
 	};
@@ -97,7 +101,11 @@ const PersonCard: React.FC<PersonCardProps> = ({
 						<Button variant="contained" onClick={() => handleViewPerson()}>
 							View
 						</Button>
-						<Button variant="contained" color="primary">
+						<Button
+							variant="contained"
+							onClick={() => handleEditPerson()}
+							color="primary"
+						>
 							Edit
 						</Button>
 						<Button

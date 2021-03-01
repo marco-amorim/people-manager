@@ -31,9 +31,18 @@ const NewPerson = () => {
 			nationality,
 		};
 
-		PeopleService.createPerson(newPerson).then(() => {
-			history.push('/');
-		});
+		PeopleService.createPerson(newPerson)
+			.then((res) => {
+				const { info } = res.data;
+				alert(info);
+
+				history.push('/');
+			})
+			.catch(() => {
+				alert(
+					'Either this CPF already exists in our database or our servers are down, please try again'
+				);
+			});
 	};
 
 	return (

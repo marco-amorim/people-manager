@@ -111,6 +111,7 @@ const PersonForm: React.FC<PersonFormProps> = ({
 				initialValues={initialValues}
 				onSubmit={handleSubmit}
 				validationSchema={PersonValidationSchema}
+				enableReinitialize={true}
 			>
 				{() => {
 					return (
@@ -142,8 +143,8 @@ const PersonForm: React.FC<PersonFormProps> = ({
 								<FormikField
 									id="birthDate"
 									name="birthDate"
-									type="date"
 									component={TextField}
+									type="date"
 									required
 								/>
 							</FormField>
