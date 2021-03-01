@@ -50,7 +50,7 @@ const EditPerson = () => {
 			})
 			.catch(() => {
 				alert(
-					'Either this CPF already exists in our database or our servers are down, please try again'
+					'Either this CPF already exists in our database or our servers are down, please try again later'
 				);
 			});
 	};

@@ -26,30 +26,11 @@ export const HeaderTitle = styled(Link)`
 	}
 `;
 
-export const HeaderButton = styled.button`
-	${buttonStyles}
-	max-width: 185px;
-	position: absolute;
-	right: 0;
-
-	@media (max-width: 767px) {
-		position: unset;
-		margin-top: 25px;
-	}
-`;
-
 export const HeaderLink = styled(Link)`
+	${buttonStyles}
 	position: absolute;
-	left: 0;
-	font-size: 1.2rem;
-	font-weight: bold;
-	color: var(--black);
-	transition: color 0.3s ease-in-out;
-
-	:hover {
-		color: var(--purple);
-		text-decoration: underline;
-	}
+	padding: 0px 20px;
+	right: 0;
 
 	@media (max-width: 767px) {
 		position: unset;

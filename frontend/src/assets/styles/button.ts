@@ -12,8 +12,10 @@ export const buttonStyles = css`
 	cursor: pointer;
 	font-size: 0.97rem;
 	font-weight: bold;
-	transition: color 0.3s ease-in-out;
-	transition: background-color 0.3s ease-in-out;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.2s ease-in-out;
 
 	&:hover {
 		background-color: var(--green);
