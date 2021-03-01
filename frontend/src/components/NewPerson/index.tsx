@@ -32,10 +32,7 @@ const NewPerson = () => {
 		};
 
 		PeopleService.createPerson(newPerson)
-			.then((res) => {
-				const { info } = res.data;
-				alert(info);
-
+			.then(() => {
 				history.push('/');
 			})
 			.catch(() => {
