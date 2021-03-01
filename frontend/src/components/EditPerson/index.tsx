@@ -45,9 +45,7 @@ const EditPerson = () => {
 		};
 
 		PeopleService.updatePerson(personId, newPerson)
-			.then((res) => {
-				const { info } = res.data;
-				alert(info);
+			.then(() => {
 				history.push('/');
 			})
 			.catch(() => {
