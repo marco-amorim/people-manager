@@ -13,10 +13,10 @@ public class SourceCodeController {
 
     @GetMapping("/source")
     public Map<String, String> getSourceCode() {
-        Map<String, String> githubResponse = new HashMap<>();
+        Map<String, String> response = new HashMap<>();
 
-        githubResponse.put("repository", "https://github.com/marco-amorim/people-manager");
+        response.put("repository", "https://github.com/marco-amorim/people-manager");
 
-        return githubResponse;
+        return response;
     }
 }
