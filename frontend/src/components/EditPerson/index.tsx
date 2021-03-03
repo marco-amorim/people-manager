@@ -44,11 +44,13 @@ const EditPerson = () => {
 			nationality,
 		};
 
-		PeopleService.checkCpfAlreadyRegistered(cpf).then((res) => {
-			if (res.data) {
-				setFieldError('cpf', 'This CPF already exists in our database');
-			}
-		});
+		if (cpf !== person?.cpf) {
+			PeopleService.checkCpfAlreadyRegistered(cpf).then((res) => {
+				if (res.data) {
+					setFieldError('cpf', 'This CPF already exists in our database');
+				}
+			});
+		}
 
 		PeopleService.updatePerson(personId, newPerson).then(() => {
 			history.push('/');
