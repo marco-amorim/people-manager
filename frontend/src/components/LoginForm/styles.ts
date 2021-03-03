@@ -29,4 +29,5 @@ export const LoginFormButton = styled(Button)`
 
 export const InvalidCredentials = styled.div`
 	margin-top: 30px;
+	color: var(--error);
 `;
