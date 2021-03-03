@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 const NewPerson = () => {
 	const history = useHistory();
 
-	const handleSubmit = (values: FormikValues) => {
+	const handleSubmit = async (values: FormikValues, setFieldError: any) => {
 		const {
 			name,
 			birthDate,
@@ -31,15 +31,15 @@ const NewPerson = () => {
 			nationality,
 		};
 
-		PeopleService.createPerson(newPerson)
-			.then(() => {
-				history.push('/');
-			})
-			.catch(() => {
-				alert(
-					'Either this CPF already exists in our database or our servers are down, please try again later'
-				);
-			});
+		PeopleService.checkCpfAlreadyRegistered(cpf).then((res) => {
+			if (res.data) {
+				setFieldError('cpf', 'This CPF already exists in our database');
+			}
+		});
+
+		PeopleService.createPerson(newPerson).then(() => {
+			history.push('/');
+		});
 	};
 
 	return (

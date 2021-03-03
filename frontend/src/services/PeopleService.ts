@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Person } from '../types';
 
 const PEOPLE_API_BASE_URL = 'http://localhost:8080/api/v1/people';
+const CHECK_CPF_API_BASE_URL = 'http://localhost:8080/api/v1/existCpf';
 
 class PeopleService {
 	getPeople = () => {
@@ -22,6 +23,10 @@ class PeopleService {
 
 	deletePerson = (id: Number) => {
 		return axios.delete(`${PEOPLE_API_BASE_URL}/${id}`);
+	};
+
+	checkCpfAlreadyRegistered = (cpf: string) => {
+		return axios.get(`${CHECK_CPF_API_BASE_URL}/${cpf}`);
 	};
 }
 

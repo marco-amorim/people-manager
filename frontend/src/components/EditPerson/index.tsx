@@ -23,7 +23,7 @@ const EditPerson = () => {
 		});
 	}, [personId]);
 
-	const handleSubmit = (values: FormikValues) => {
+	const handleSubmit = (values: FormikValues, setFieldError: any) => {
 		const {
 			name,
 			birthDate,
@@ -44,15 +44,15 @@ const EditPerson = () => {
 			nationality,
 		};
 
-		PeopleService.updatePerson(personId, newPerson)
-			.then(() => {
-				history.push('/');
-			})
-			.catch(() => {
-				alert(
-					'Either this CPF already exists in our database or our servers are down, please try again later'
-				);
-			});
+		PeopleService.checkCpfAlreadyRegistered(cpf).then((res) => {
+			if (res.data) {
+				setFieldError('cpf', 'This CPF already exists in our database');
+			}
+		});
+
+		PeopleService.updatePerson(personId, newPerson).then(() => {
+			history.push('/');
+		});
 	};
 
 	const renderForm = () => {
