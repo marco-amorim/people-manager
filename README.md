@@ -36,7 +36,7 @@ MySQL 5.7
 
 _Frontend_:
 
-- Inside the frontend folder execute the command `npm install` to install all the dependencies
+- Inside the `frontend` folder execute the command `npm install` to install all the dependencies
 - Once all the dependencies are installed simply execute `npm start`
 - The application will run on `localhost:3000` by default
 
@@ -54,4 +54,5 @@ spring.datasource.url=jdbc:mysql://localhost:3306/peoplemanager?useSSL=false
 _Backend_:
 
 - Make sure you have Java 8 installed
-- Open the backend folder in your favorite IDE and execute the project
+- Inside the `backend` folder execute the command `mvn clean install` to install all the dependencies
+- Open the `backend` folder in your favorite IDE and execute the project
