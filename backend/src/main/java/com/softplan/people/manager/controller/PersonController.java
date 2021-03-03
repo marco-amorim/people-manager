@@ -1,14 +1,10 @@
 package com.softplan.people.manager.controller;
 
-import com.softplan.people.manager.exception.CpfValidationException;
 import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.interfaces.IPersonController;
 import com.softplan.people.manager.model.Person;
 import com.softplan.people.manager.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +18,11 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class PersonController implements IPersonController {
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
+
+    public PersonController(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @GetMapping("/people")
     public List<Person> getPeople() {
@@ -31,21 +30,21 @@ public class PersonController implements IPersonController {
     }
 
     @PostMapping("/people")
-    public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody Person person) throws CpfValidationException {
+    public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody Person person) {
         try {
             personRepository.save(person);
             Map<String, String> response = new HashMap<>();
-            response.put("info", "Person created successfully");
+            response.put("message", "Person created successfully");
             return ResponseEntity.status(201).body(response);
         } catch (DataIntegrityViolationException ex) {
             Map<String, String> response = new HashMap<>();
-            response.put("error", "This CPF already exists in our database");
+            response.put("message", "This CPF already exists in our database");
             return ResponseEntity.status(409).body(response);
         }
     }
 
     @PutMapping("/people/{id}")
-    public ResponseEntity<Map<String, String>> updatePerson(@PathVariable Long id, @Valid @RequestBody Person newPerson) throws CpfValidationException {
+    public ResponseEntity<Map<String, String>> updatePerson(@PathVariable Long id, @Valid @RequestBody Person newPerson) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
 
         try {
@@ -87,9 +86,9 @@ public class PersonController implements IPersonController {
     }
 
     @GetMapping("/existCpf/{cpf}")
-    public ResponseEntity<Boolean> checkCpfAlreadyRegistered(@PathVariable(required = true) String cpf) {
+    public ResponseEntity<Boolean> checkCpfAlreadyRegistered(@PathVariable String cpf) {
 
-        return new ResponseEntity(isCpfAlreadyRegistered(cpf), new HttpHeaders(), HttpStatus.OK);
+        return ResponseEntity.status(200).body(isCpfAlreadyRegistered(cpf));
     }
 
     @Override
