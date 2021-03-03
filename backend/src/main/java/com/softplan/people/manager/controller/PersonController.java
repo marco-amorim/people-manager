@@ -1,6 +1,5 @@
 package com.softplan.people.manager.controller;
 
-import br.com.caelum.stella.validation.CPFValidator;
 import com.softplan.people.manager.exception.CpfValidationException;
 import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.interfaces.IPersonController;
@@ -34,7 +33,6 @@ public class PersonController implements IPersonController {
     @PostMapping("/people")
     public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody Person person) throws CpfValidationException {
         try {
-            validateCpf(person.getCpf());
             personRepository.save(person);
             Map<String, String> response = new HashMap<>();
             response.put("info", "Person created successfully");
@@ -51,7 +49,6 @@ public class PersonController implements IPersonController {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
 
         try {
-            validateCpf(person.getCpf());
             person.setName(newPerson.getName());
             person.setEmail(newPerson.getEmail());
             person.setBirthDate(newPerson.getBirthDate());
@@ -98,17 +95,6 @@ public class PersonController implements IPersonController {
     @Override
     public Boolean isCpfAlreadyRegistered(String cpf) {
         return personRepository.getCpfCount(cpf) > 0;
-    }
-
-    private void validateCpf(String cpf) throws CpfValidationException {
-
-        CPFValidator cpfValidator = new CPFValidator();
-
-        try {
-            cpfValidator.assertValid(cpf);
-        } catch (Exception ex) {
-            throw new CpfValidationException();
-        }
     }
 
 }
