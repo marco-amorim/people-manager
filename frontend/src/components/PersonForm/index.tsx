@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { FormikValues, Formik, Field } from 'formik';
-import FormikField from './FormikField';
+import FormikField from '../FormikField';
 
 import { FormButton, FormikForm, FormField, FormActions } from './styles';
 import { useHistory } from 'react-router-dom';

@@ -26,10 +26,9 @@ export const HeaderTitle = styled(Link)`
 	}
 `;
 
-export const HeaderLink = styled(Link)`
+export const HeaderButton = styled.button`
 	${buttonStyles}
 	position: absolute;
-	padding: 0px 20px;
 	right: 0;
 
 	@media (max-width: 767px) {
