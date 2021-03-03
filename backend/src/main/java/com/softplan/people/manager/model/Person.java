@@ -1,7 +1,11 @@
 package com.softplan.people.manager.model;
 
 import com.softplan.people.manager.types.Gender;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,6 +21,14 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @CreationTimestamp
+    @Column(name = "created_At")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "last_Updated")
+    private Date lastUpdated;
 
     @Column(name = "name")
     @NotBlank(message = "{name.not.blank}")
@@ -121,4 +133,11 @@ public class Person {
         return id;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
 }
