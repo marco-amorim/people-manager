@@ -12,7 +12,7 @@ import java.util.Map;
 public class SourceCodeController {
 
     @GetMapping("/source")
-    public Map<String, String> getSourceCode() {
+    public Map<String, String> getSourceCodeLink() {
         Map<String, String> response = new HashMap<>();
 
         response.put("repository", "https://github.com/marco-amorim/people-manager");

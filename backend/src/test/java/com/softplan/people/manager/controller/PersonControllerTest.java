@@ -29,6 +29,8 @@ public class PersonControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    // Authenticated Requests
+
     @Test
     public void should_return_success_for_authenticated_request() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/people").header(HttpHeaders.AUTHORIZATION,
@@ -39,6 +41,8 @@ public class PersonControllerTest {
         assertEquals(200, result.getResponse().getStatus());
     }
 
+    // Unauthenticated Requests
+
     @Test
     public void should_block_unauthenticated_request() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/people");
@@ -48,8 +52,10 @@ public class PersonControllerTest {
         assertEquals(401, result.getResponse().getStatus());
     }
 
+    // getPersonById
+
     @Test
-    public void should_return_not_found_for_invalid_person_id() throws Exception {
+    public void should_return_not_found_for_getting_invalid_person_id() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/people/-1").header(HttpHeaders.AUTHORIZATION,
                 "Basic " + Base64Utils.encodeToString("admin:admin".getBytes()));
 
@@ -68,6 +74,18 @@ public class PersonControllerTest {
         assertEquals(ResourceNotFoundException.class, result.getResolvedException().getClass());
     }
 
+    // deletePerson
+
+    @Test
+    public void should_return_not_found_for_deleting_invalid_person_id() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.delete("/api/v1/people/-1").header(HttpHeaders.AUTHORIZATION,
+                "Basic " + Base64Utils.encodeToString("admin:admin".getBytes()));
+
+        MvcResult result = mvc.perform(request).andReturn();
+
+        assertEquals(404, result.getResponse().getStatus());
+    }
+
     @Test
     public void should_return_custom_exception_for_deleting_invalid_person_id() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.delete("/api/v1/people/-1").header(HttpHeaders.AUTHORIZATION,
@@ -77,6 +95,8 @@ public class PersonControllerTest {
 
         assertEquals(ResourceNotFoundException.class, result.getResolvedException().getClass());
     }
+
+    // updatePerson
 
     @Test
     public void should_return_bad_request_for_updating_invalid_person_id() throws Exception {
@@ -89,15 +109,5 @@ public class PersonControllerTest {
 
         assertEquals(400, result.getResponse().getStatus());
     }
-
-    @Test
-    public void should_return_repository_link_for_unauthenticated_request() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/source");
-
-        MvcResult result = mvc.perform(request).andReturn();
-
-        assertEquals("{\"repository\":\"https://github.com/marco-amorim/people-manager\"}", result.getResponse().getContentAsString());
-    }
-
 
 }
