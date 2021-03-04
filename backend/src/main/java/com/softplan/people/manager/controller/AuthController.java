@@ -13,8 +13,8 @@ public class AuthController implements IAuthController {
 
     @GetMapping(path = "/auth")
     public ResponseEntity<AuthenticationBean> authenticate() {
-        AuthenticationBean authenticated = new AuthenticationBean("You are authenticated");
-        return ResponseEntity.status(200).body(authenticated);
+        AuthenticationBean response = new AuthenticationBean("You are authenticated");
+        return ResponseEntity.status(200).body(response);
     }
 }
 

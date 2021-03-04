@@ -29,7 +29,6 @@ public class AuthControllerTest {
     public void should_return_success_on_correct_credentials() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/auth").header(HttpHeaders.AUTHORIZATION,
                 "Basic " + Base64Utils.encodeToString("admin:admin".getBytes()));
-        ;
 
         MvcResult result = mvc.perform(request).andReturn();
 
@@ -40,7 +39,6 @@ public class AuthControllerTest {
     public void should_return_unauthorized_on_wrong_credentials() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/auth").header(HttpHeaders.AUTHORIZATION,
                 "Basic " + Base64Utils.encodeToString("wrong_admin:wrong_admin".getBytes()));
-        ;
 
         MvcResult result = mvc.perform(request).andReturn();
 
