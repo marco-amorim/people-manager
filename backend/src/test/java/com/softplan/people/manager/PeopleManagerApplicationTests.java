@@ -1,13 +1,18 @@
 package com.softplan.people.manager;
 
+import com.softplan.people.manager.controller.PersonControllerTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-@SpringBootTest
-class PeopleManagerApplicationTests {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+        PersonControllerTest.class
+})
+public class PeopleManagerApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
