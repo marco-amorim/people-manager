@@ -10,7 +10,10 @@ import { Select } from 'formik-material-ui';
 import { checkIfCpfExists, validateBirthDate } from '../../utils/validations';
 
 interface PersonFormProps {
-	onSubmit: (values: FormikValues, setFieldError: any) => void;
+	onSubmit: (
+		values: FormikValues,
+		setFieldError: (field: string, message: string | undefined) => void
+	) => void;
 	initialName?: string;
 	initialBirthDate?: string;
 	initialCpf?: string;
@@ -101,7 +104,12 @@ const PersonForm: React.FC<PersonFormProps> = ({
 		),
 	});
 
-	const handleSubmit = (values: FormikValues, { setFieldError }: any) => {
+	const handleSubmit = (
+		values: FormikValues,
+		{
+			setFieldError,
+		}: { setFieldError: (field: string, message: string | undefined) => void }
+	) => {
 		onSubmit(values, setFieldError);
 	};
 

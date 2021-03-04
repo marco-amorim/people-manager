@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
 import { Actions } from './styles';
 import { useHistory } from 'react-router-dom';
-import PersonDataField from '../PersonDataFIeld';
+import PersonDataField from '../PersonDataField';
 import { Person } from '../../types';
 import ConfirmModal from '../ConfirmModal';
 

@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 const NewPerson = () => {
 	const history = useHistory();
 
-	const handleSubmit = async (values: FormikValues, setFieldError: any) => {
+	const handleSubmit = async (values: FormikValues, setFieldError: (field: string, message: string | undefined) => void) => {
 		const {
 			name,
 			birthDate,

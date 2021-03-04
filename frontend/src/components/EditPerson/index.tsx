@@ -23,7 +23,7 @@ const EditPerson = () => {
 		});
 	}, [personId]);
 
-	const handleSubmit = (values: FormikValues, setFieldError: any) => {
+	const handleSubmit = (values: FormikValues, setFieldError: (field: string, message: string | undefined) => void) => {
 		const {
 			name,
 			birthDate,
