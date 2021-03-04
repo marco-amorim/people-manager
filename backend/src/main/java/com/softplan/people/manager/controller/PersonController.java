@@ -58,11 +58,11 @@ public class PersonController implements IPersonController {
 
             personRepository.save(person);
             Map<String, String> response = new HashMap<>();
-            response.put("info", "Person updated successfully");
+            response.put("message", "Person updated successfully");
             return ResponseEntity.status(200).body(response);
         } catch (DataIntegrityViolationException ex) {
             Map<String, String> response = new HashMap<>();
-            response.put("error", "This CPF already exists in our database");
+            response.put("message", "This CPF already exists in our database");
             return ResponseEntity.status(409).body(response);
         }
 
