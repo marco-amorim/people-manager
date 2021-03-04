@@ -56,3 +56,4 @@ _Backend_:
 - Make sure you have Java 8 installed
 - Inside the `backend` folder execute the command `mvn clean install` to install all the dependencies
 - Open the `backend` folder in your favorite IDE and execute the project
+- The application will run on `localhost:8080` by default
