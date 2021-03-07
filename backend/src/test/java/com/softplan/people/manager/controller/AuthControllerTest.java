@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.util.Base64Utils;
 
+import java.net.HttpURLConnection;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureMockMvc
@@ -32,7 +34,7 @@ public class AuthControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(200, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_OK, result.getResponse().getStatus());
     }
 
     @Test
@@ -42,7 +44,7 @@ public class AuthControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(401, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_UNAUTHORIZED, result.getResponse().getStatus());
     }
 
 }

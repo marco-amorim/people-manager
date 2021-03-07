@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.util.Base64Utils;
 
+import java.net.HttpURLConnection;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +34,7 @@ public class PersonControllerTest {
 
     @Autowired
     private MockMvc mvc;
-    
+
     // Authenticated Requests
 
     @Test
@@ -43,7 +44,7 @@ public class PersonControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(200, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_OK, result.getResponse().getStatus());
     }
 
     // Unauthenticated Requests
@@ -54,7 +55,7 @@ public class PersonControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(401, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_UNAUTHORIZED, result.getResponse().getStatus());
     }
 
     // getPersonById
@@ -66,7 +67,7 @@ public class PersonControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(404, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_NOT_FOUND, result.getResponse().getStatus());
     }
 
     @Test
@@ -88,7 +89,7 @@ public class PersonControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(404, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_NOT_FOUND, result.getResponse().getStatus());
     }
 
     @Test
@@ -112,7 +113,7 @@ public class PersonControllerTest {
 
         MvcResult result = mvc.perform(request).andReturn();
 
-        assertEquals(400, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_BAD_REQUEST, result.getResponse().getStatus());
     }
 
     // createPerson
@@ -140,7 +141,7 @@ public class PersonControllerTest {
                 .characterEncoding("utf-8"))
                 .andReturn();
 
-        assertEquals(400, result.getResponse().getStatus());
+        assertEquals(HttpURLConnection.HTTP_BAD_REQUEST, result.getResponse().getStatus());
     }
 
 }
