@@ -127,16 +127,16 @@ public class Person {
         this.gender = gender;
     }
 
-    public long getId() {
-        return id;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
 
     public Date getLastUpdated() {
         return lastUpdated;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {

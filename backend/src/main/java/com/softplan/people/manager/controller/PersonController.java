@@ -1,5 +1,7 @@
 package com.softplan.people.manager.controller;
 
+import com.softplan.people.manager.controller.dto.PersonDto;
+import com.softplan.people.manager.controller.form.PersonForm;
 import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.interfaces.IPersonController;
 import com.softplan.people.manager.model.Person;
@@ -24,13 +26,16 @@ public class PersonController implements IPersonController {
     private PersonRepository personRepository;
 
     @GetMapping("/people")
-    public List<Person> getPeople() {
-        return personRepository.findAll();
+    public List<PersonDto> getPeople() {
+        List<Person> people = personRepository.findAll();
+
+        return PersonDto.convertToPersonDtoList(people);
     }
 
     @PostMapping("/people")
-    public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody Person person) {
+    public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody PersonForm personForm) {
         try {
+            Person person = personForm.convertToPerson();
             personRepository.save(person);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Person created successfully");
@@ -43,10 +48,11 @@ public class PersonController implements IPersonController {
     }
 
     @PutMapping("/people/{id}")
-    public ResponseEntity<Map<String, String>> updatePerson(@PathVariable Long id, @Valid @RequestBody Person newPerson) {
+    public ResponseEntity<Map<String, String>> updatePerson(@PathVariable Long id, @Valid @RequestBody PersonForm personForm) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
 
         try {
+            Person newPerson = personForm.convertToPerson();
 
             newPerson.setId(person.getId());
 
@@ -64,9 +70,10 @@ public class PersonController implements IPersonController {
     }
 
     @GetMapping("/people/{id}")
-    public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
+    public ResponseEntity<PersonDto> getPersonById(@PathVariable Long id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
-        return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(person);
+        PersonDto personDto = PersonDto.convertToPersonDto(person);
+        return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(personDto);
     }
 
     @DeleteMapping("/people/{id}")
