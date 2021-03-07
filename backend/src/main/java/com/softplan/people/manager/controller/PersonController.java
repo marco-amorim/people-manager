@@ -4,11 +4,13 @@ import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.interfaces.IPersonController;
 import com.softplan.people.manager.model.Person;
 import com.softplan.people.manager.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +20,8 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class PersonController implements IPersonController {
 
-    private final PersonRepository personRepository;
-
-    public PersonController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    @Autowired
+    private PersonRepository personRepository;
 
     @GetMapping("/people")
     public List<Person> getPeople() {
@@ -35,11 +34,11 @@ public class PersonController implements IPersonController {
             personRepository.save(person);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Person created successfully");
-            return ResponseEntity.status(201).body(response);
+            return ResponseEntity.status(HttpURLConnection.HTTP_CREATED).body(response);
         } catch (DataIntegrityViolationException ex) {
             Map<String, String> response = new HashMap<>();
             response.put("message", "This CPF already exists in our database");
-            return ResponseEntity.status(409).body(response);
+            return ResponseEntity.status(HttpURLConnection.HTTP_CONFLICT).body(response);
         }
     }
 
@@ -48,22 +47,17 @@ public class PersonController implements IPersonController {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
 
         try {
-            person.setName(newPerson.getName());
-            person.setEmail(newPerson.getEmail());
-            person.setBirthDate(newPerson.getBirthDate());
-            person.setCpf(newPerson.getCpf());
-            person.setGender(newPerson.getGender());
-            person.setNationality(newPerson.getNationality());
-            person.setNativeFrom(newPerson.getNativeFrom());
 
-            personRepository.save(person);
+            newPerson.setId(person.getId());
+
+            personRepository.save(newPerson);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Person updated successfully");
-            return ResponseEntity.status(200).body(response);
+            return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(response);
         } catch (DataIntegrityViolationException ex) {
             Map<String, String> response = new HashMap<>();
             response.put("message", "This CPF already exists in our database");
-            return ResponseEntity.status(409).body(response);
+            return ResponseEntity.status(HttpURLConnection.HTTP_CONFLICT).body(response);
         }
 
 
@@ -72,7 +66,7 @@ public class PersonController implements IPersonController {
     @GetMapping("/people/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
         Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
-        return ResponseEntity.status(200).body(person);
+        return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(person);
     }
 
     @DeleteMapping("/people/{id}")
@@ -82,13 +76,13 @@ public class PersonController implements IPersonController {
         personRepository.delete(person);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.status(202).body(response);
+        return ResponseEntity.status(HttpURLConnection.HTTP_ACCEPTED).body(response);
     }
 
-    @GetMapping("/existCpf/{cpf}")
+    @GetMapping("/exist-cpf/{cpf}")
     public ResponseEntity<Boolean> checkCpfAlreadyRegistered(@PathVariable String cpf) {
 
-        return ResponseEntity.status(200).body(isCpfAlreadyRegistered(cpf));
+        return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(isCpfAlreadyRegistered(cpf));
     }
 
     @Override

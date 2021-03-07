@@ -21,7 +21,7 @@ public class Person {
     private long id;
 
     @CreationTimestamp
-    @Column(name = "created_At")
+    @Column(name = "created_At", updatable = false)
     private Date createdAt;
 
     @UpdateTimestamp
@@ -137,5 +137,9 @@ public class Person {
 
     public Date getLastUpdated() {
         return lastUpdated;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

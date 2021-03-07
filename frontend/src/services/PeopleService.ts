@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Person } from '../types';
 
 const PEOPLE_API_BASE_URL = 'http://localhost:8080/api/v1/people';
-const CHECK_CPF_API_BASE_URL = 'http://localhost:8080/api/v1/existCpf';
+const CHECK_CPF_API_BASE_URL = 'http://localhost:8080/api/v1/exist-cpf';
 
 class PeopleService {
 	getPeople = () => {

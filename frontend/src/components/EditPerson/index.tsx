@@ -23,7 +23,10 @@ const EditPerson = () => {
 		});
 	}, [personId]);
 
-	const handleSubmit = (values: FormikValues, setFieldError: (field: string, message: string | undefined) => void) => {
+	const handleSubmit = (
+		values: FormikValues,
+		setFieldError: (field: string, message: string | undefined) => void
+	) => {
 		const {
 			name,
 			birthDate,
@@ -58,35 +61,33 @@ const EditPerson = () => {
 	};
 
 	const renderForm = () => {
-		if (person) {
-			const date = new Date(person.birthDate);
-			const formatedMonth =
-				date.getUTCMonth() + 1 < 10
-					? `0${date.getUTCMonth() + 1}`
-					: `${date.getUTCMonth() + 1}`;
-
-			const formatedDay =
-				date.getUTCDate() < 10
-					? `0${date.getUTCDate()}`
-					: `${date.getUTCDate()}`;
-
-			const formatedBirthDate = `${date.getUTCFullYear()}-${formatedMonth}-${formatedDay}`;
-
-			return (
-				<PersonForm
-					onSubmit={handleSubmit}
-					initialBirthDate={formatedBirthDate}
-					initialCpf={person.cpf}
-					initialEmail={person.email}
-					initialGender={person.gender}
-					initialName={person.name}
-					initialNationality={person.nationality}
-					initialNativeFrom={person.nativeFrom}
-				/>
-			);
+		if (!person) {
+			return null;
 		}
 
-		return null;
+		const date = new Date(person.birthDate);
+		const formatedMonth =
+			date.getUTCMonth() + 1 < 10
+				? `0${date.getUTCMonth() + 1}`
+				: `${date.getUTCMonth() + 1}`;
+
+		const formatedDay =
+			date.getUTCDate() < 10 ? `0${date.getUTCDate()}` : `${date.getUTCDate()}`;
+
+		const formatedBirthDate = `${date.getUTCFullYear()}-${formatedMonth}-${formatedDay}`;
+
+		return (
+			<PersonForm
+				onSubmit={handleSubmit}
+				initialBirthDate={formatedBirthDate}
+				initialCpf={person.cpf}
+				initialEmail={person.email}
+				initialGender={person.gender}
+				initialName={person.name}
+				initialNationality={person.nationality}
+				initialNativeFrom={person.nativeFrom}
+			/>
+		);
 	};
 
 	return (
