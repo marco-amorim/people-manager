@@ -132,10 +132,10 @@ public class PersonControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(mockPerson);
 
-        RequestBuilder request = MockMvcRequestBuilders.post("/api/v1/people").header(HttpHeaders.AUTHORIZATION,
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/api/v1/people").header(HttpHeaders.AUTHORIZATION,
                 "Basic " + Base64Utils.encodeToString("admin:admin".getBytes()));
 
-        MvcResult result = mvc.perform(((MockHttpServletRequestBuilder) request)
+        MvcResult result = mvc.perform(request
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson)
                 .characterEncoding("utf-8"))
