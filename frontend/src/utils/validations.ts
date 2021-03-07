@@ -40,3 +40,26 @@ export const validateBirthDate = (birthDate: string) => {
 		return true;
 	}
 };
+
+export const formatDateIntoString = (date: Date, isCardDate?: boolean) => {
+	const twoDigitsDate = 10;
+
+	const formatedMonth =
+		date.getUTCMonth() + 1 < twoDigitsDate
+			? `0${date.getUTCMonth() + 1}`
+			: `${date.getUTCMonth() + 1}`;
+
+	const formatedDay =
+		date.getUTCDate() < twoDigitsDate
+			? `0${date.getUTCDate()}`
+			: `${date.getUTCDate()}`;
+
+	const dateString = `${date.getUTCFullYear()}-${formatedMonth}-${formatedDay}`;
+	const dateCardString = `${formatedMonth}/${formatedDay}/${date.getUTCFullYear()}`;
+
+	if (isCardDate) {
+		return dateCardString;
+	}
+
+	return dateString;
+};

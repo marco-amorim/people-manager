@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import PeopleService from '../../services/PeopleService';
 import { Person } from '../../types';
+import { formatDateIntoString } from '../../utils/validations';
 import PageTitle from '../PageTitle';
 import PersonForm from '../PersonForm';
 import { EditPersonContainer } from './styles';
@@ -65,16 +66,8 @@ const EditPerson = () => {
 			return null;
 		}
 
-		const date = new Date(person.birthDate);
-		const formatedMonth =
-			date.getUTCMonth() + 1 < 10
-				? `0${date.getUTCMonth() + 1}`
-				: `${date.getUTCMonth() + 1}`;
-
-		const formatedDay =
-			date.getUTCDate() < 10 ? `0${date.getUTCDate()}` : `${date.getUTCDate()}`;
-
-		const formatedBirthDate = `${date.getUTCFullYear()}-${formatedMonth}-${formatedDay}`;
+		const birthDate = new Date(person.birthDate);
+		const formatedBirthDate = formatDateIntoString(birthDate);
 
 		return (
 			<PersonForm

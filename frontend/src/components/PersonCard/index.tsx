@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import PersonDataField from '../PersonDataField';
 import { Person } from '../../types';
 import ConfirmModal from '../ConfirmModal';
+import { formatDateIntoString } from '../../utils/validations';
 
 interface PersonCardProps {
 	fullData?: boolean;
@@ -47,11 +48,9 @@ const PersonCard: React.FC<PersonCardProps> = ({
 
 	const date = new Date(birthDate);
 
-	const genderFormated = gender === 'MALE' ? 'Male' : 'Female';
+	const formatedBirthDate = formatDateIntoString(date, true);
 
-	const formatedBirthDate = `${date.getUTCDate()}/${
-		date.getUTCMonth() + 1
-	}/${date.getUTCFullYear()}`;
+	const genderFormated = gender === 'MALE' ? 'Male' : 'Female';
 
 	const handleViewPerson = () => {
 		history.push(`/person/view/${id}`);
