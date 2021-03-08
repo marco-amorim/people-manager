@@ -60,10 +60,10 @@ _Backend_:
 
 ### Tests
 
-- To run all tests execute the instructions below
+- To run all tests follow the instructions below
 
 **Instructions**:
 
 - Open the `backend` folder in your IDE
-- Navigate to `/src/test/java/com.softplan.people.manager`
+- Navigate to `/src/test/java/com.softplan.people.manager/`
 - In there you will find the `PeopleManagerApplicationTests`class, execute it to run all tests
