@@ -57,3 +57,13 @@ _Backend_:
 - Inside the `backend` folder execute the command `mvn clean install` to install all the dependencies
 - Open the `backend` folder in your favorite IDE and execute the project
 - The application will run on `localhost:8080` by default
+
+### Tests
+
+- To run all tests execute the instructions below
+
+**Instructions**:
+
+- Open the `backend` folder in your IDE
+- Navigate to `/src/test/java/com.softplan.people.manager`
+- In there you will find the `PeopleManagerApplicationTests`class, execute it to run all tests
