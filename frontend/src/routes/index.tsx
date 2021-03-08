@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import EditPerson from '../components/EditPerson';
 import LoginForm from '../components/LoginForm';
 import NewPerson from '../components/NewPerson';
@@ -11,7 +11,7 @@ const Routes = () => {
 	const user = useSelector<UserState, UserState['user']>((state) => state.user);
 
 	return (
-		<Switch>
+		<>
 			{user && (
 				<>
 					<Route path="/" exact component={PeopleList} />
@@ -21,7 +21,7 @@ const Routes = () => {
 				</>
 			)}
 			<Route path="/login" exact component={LoginForm} />
-		</Switch>
+		</>
 	);
 };
 
