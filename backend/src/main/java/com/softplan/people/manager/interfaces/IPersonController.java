@@ -17,8 +17,8 @@ public interface IPersonController {
 
     ResponseEntity<PersonDto> getPersonById(Long id);
 
-    ResponseEntity<Map<String, Boolean>> deletePerson(Long id);
+    ResponseEntity<Map<String, String>> deletePerson(Long id);
 
-    Boolean isCpfAlreadyRegistered(String cpf);
+    ResponseEntity<Boolean> isCpfAlreadyRegistered(String cpf);
 
 }

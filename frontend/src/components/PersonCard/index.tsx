@@ -60,6 +60,11 @@ const PersonCard: React.FC<PersonCardProps> = ({
 		history.push(`/person/edit/${id}`);
 	};
 
+	const handleConfirm = (id: Number) => {
+		setShowDeleteModal(false);
+		deleteFunction!(id);
+	};
+
 	return (
 		<>
 			{showDeleteModal && (
@@ -68,7 +73,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
 					title="Delete Person"
 					isOpen={showDeleteModal}
 					onDismiss={() => setShowDeleteModal(false)}
-					onConfirm={() => deleteFunction!(id!)}
+					onConfirm={() => handleConfirm(id!)}
 				/>
 			)}
 			<Card className={classes.root}>

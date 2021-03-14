@@ -2,12 +2,10 @@ package com.softplan.people.manager.controller;
 
 import com.softplan.people.manager.controller.dto.PersonDto;
 import com.softplan.people.manager.controller.form.PersonForm;
-import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.interfaces.IPersonController;
 import com.softplan.people.manager.model.Person;
-import com.softplan.people.manager.repository.PersonRepository;
+import com.softplan.people.manager.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,78 +21,78 @@ import java.util.Map;
 public class PersonController implements IPersonController {
 
     @Autowired
-    private PersonRepository personRepository;
+    private PersonService personService;
 
     @GetMapping("/people")
     public List<PersonDto> getPeople() {
-        List<Person> people = personRepository.findAll();
+        List<Person> people = personService.getAll();
 
         return PersonDto.convertToPersonDtoList(people);
     }
 
     @PostMapping("/people")
     public ResponseEntity<Map<String, String>> createPerson(@Valid @RequestBody PersonForm personForm) {
+
+        Map<String, String> response = new HashMap<>();
+
         try {
             Person person = personForm.convertToPerson();
-            personRepository.save(person);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Person created successfully");
+
+            personService.add(person);
+
+            response.put("success", "Person created successfully");
+
             return ResponseEntity.status(HttpURLConnection.HTTP_CREATED).body(response);
-        } catch (DataIntegrityViolationException ex) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "This CPF already exists in our database");
-            return ResponseEntity.status(HttpURLConnection.HTTP_CONFLICT).body(response);
+
+        } catch (Exception ex) {
+            response.put("error", ex.getMessage());
+
+            return ResponseEntity.status(HttpURLConnection.HTTP_BAD_REQUEST).body(response);
         }
     }
 
     @PutMapping("/people/{id}")
     public ResponseEntity<Map<String, String>> updatePerson(@PathVariable Long id, @Valid @RequestBody PersonForm personForm) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
+
+        Map<String, String> response = new HashMap<>();
 
         try {
-            Person newPerson = personForm.convertToPerson();
+            personService.update(id, personForm);
 
-            newPerson.setId(person.getId());
+            response.put("success", "Person updated successfully");
 
-            personRepository.save(newPerson);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Person updated successfully");
             return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(response);
-        } catch (DataIntegrityViolationException ex) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "This CPF already exists in our database");
-            return ResponseEntity.status(HttpURLConnection.HTTP_CONFLICT).body(response);
-        }
 
+        } catch (Exception ex) {
+            response.put("error", ex.getMessage());
+
+            return ResponseEntity.status(HttpURLConnection.HTTP_BAD_REQUEST).body(response);
+        }
 
     }
 
     @GetMapping("/people/{id}")
     public ResponseEntity<PersonDto> getPersonById(@PathVariable Long id) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
+        Person person = personService.getById(id);
         PersonDto personDto = PersonDto.convertToPersonDto(person);
         return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(personDto);
     }
 
     @DeleteMapping("/people/{id}")
-    public ResponseEntity<Map<String, Boolean>> deletePerson(@PathVariable Long id) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Person does not exist with id: " + id)));
+    public ResponseEntity<Map<String, String>> deletePerson(@PathVariable Long id) {
 
-        personRepository.delete(person);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
+        personService.delete(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("success", "Person deleted successfully");
         return ResponseEntity.status(HttpURLConnection.HTTP_ACCEPTED).body(response);
     }
 
     @GetMapping("/exist-cpf/{cpf}")
-    public ResponseEntity<Boolean> checkCpfAlreadyRegistered(@PathVariable String cpf) {
+    public ResponseEntity<Boolean> isCpfAlreadyRegistered(@PathVariable String cpf) {
 
-        return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(isCpfAlreadyRegistered(cpf));
-    }
+        Boolean response = personService.isCpfRegistered(cpf);
 
-    @Override
-    public Boolean isCpfAlreadyRegistered(String cpf) {
-        return personRepository.getCpfCount(cpf) > 0;
+        return ResponseEntity.status(HttpURLConnection.HTTP_OK).body(response);
     }
 
 }

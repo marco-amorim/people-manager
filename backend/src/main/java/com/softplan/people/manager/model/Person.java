@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "people", uniqueConstraints = @UniqueConstraint(columnNames = "cpf", name = "cpf"))
+@Table(name = "people")
 public class Person {
 
     @Id
@@ -43,7 +43,7 @@ public class Person {
     @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique = true)
     @NotBlank(message = "{cpf.not.blank}")
     @NotNull(message = "{cpf.not.null}")
     @CPF(message = "{cpf.not.valid}")
