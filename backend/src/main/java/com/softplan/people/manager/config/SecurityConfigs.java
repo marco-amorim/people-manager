@@ -62,6 +62,7 @@ public class SecurityConfigs extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers("/source").permitAll()
                 .anyRequest().authenticated()
                 .and().cors();
 
