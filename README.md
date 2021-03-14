@@ -58,6 +58,10 @@ _Backend_:
 - Open the `backend` folder in your favorite IDE and execute the project
 - The application will run on `localhost:8080` by default
 
+### Swagger API Docs
+
+- To check out the API docs navigate to `http://localhost:8080/swagger-ui.html`
+
 ### Tests
 
 - To run all tests follow the instructions below
