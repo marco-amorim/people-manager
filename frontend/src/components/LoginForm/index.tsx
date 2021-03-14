@@ -40,9 +40,12 @@ const LoginForm = () => {
 	const handleLogin = (values: FormikValues) => {
 		const { username, password } = values;
 
-		AuthService.executeBasicAuthenticationService(username, password)
-			.then(() => {
-				AuthService.registerSuccessfulLogin(username, password);
+		AuthService.executeJwtAuthenticationService(username, password)
+			.then((response) => {
+				AuthService.registerSuccessfulLoginForJwt(
+					username,
+					response.data.token
+				);
 				dispatch(changeUserState({ user: true }));
 				history.push('/');
 			})
