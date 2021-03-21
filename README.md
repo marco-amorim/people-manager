@@ -1,4 +1,4 @@
-# People Manager
+# PeopleManager
 
 - Web application to easily manage people
 - This project is a code challenge
