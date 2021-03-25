@@ -1,6 +1,7 @@
 # PeopleManager
 
 - Web application to easily manage people
+- Developed with Java (Spring Boot) + React + MySQL
 
 ## Executing the project
 
