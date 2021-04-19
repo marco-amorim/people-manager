@@ -40,7 +40,7 @@ public class AuthControllerTest {
     JwtTokenRequest loginFormBadCredentials = new JwtTokenRequest("wrong_admin", "wrong_admin");
 
     @Test
-    public void should_return_success_on_correct_credentials() throws Exception {
+    public void should_return_success_status_code_on_correct_credentials() throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -59,7 +59,7 @@ public class AuthControllerTest {
     }
 
     @Test
-    public void should_return_unauthorized_on_wrong_credentials() throws Exception {
+    public void should_return_unauthorized_status_code_on_wrong_credentials() throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
