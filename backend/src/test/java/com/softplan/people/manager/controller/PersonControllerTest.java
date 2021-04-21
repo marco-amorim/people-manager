@@ -41,7 +41,7 @@ public class PersonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin")
-    public void should_return_success_for_authenticated_request() throws Exception {
+    public void should_return_success_status_code_for_authenticated_request() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/people");
 
         MvcResult result = mvc.perform(request).andReturn();
@@ -52,7 +52,7 @@ public class PersonControllerTest {
     // Unauthenticated Requests
 
     @Test
-    public void should_block_unauthenticated_request() throws Exception {
+    public void should_return_unauthorized_status_code_for_not_logged_request() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/people");
 
         MvcResult result = mvc.perform(request).andReturn();
@@ -64,7 +64,7 @@ public class PersonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin")
-    public void should_return_not_found_for_getting_invalid_person_id() throws Exception {
+    public void should_return_notfound_status_code_for_getting_invalid_person_id() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.get("/api/v1/people/-1");
 
         MvcResult result = mvc.perform(request).andReturn();
@@ -86,7 +86,7 @@ public class PersonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin")
-    public void should_return_not_found_for_deleting_invalid_person_id() throws Exception {
+    public void should_return_notfound_status_code_for_deleting_invalid_person_id() throws Exception {
         RequestBuilder request = MockMvcRequestBuilders.delete("/api/v1/people/-1");
 
         MvcResult result = mvc.perform(request).andReturn();
@@ -108,7 +108,7 @@ public class PersonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin")
-    public void should_return_bad_request_for_updating_invalid_person_id() throws Exception {
+    public void should_return_bad_request_status_code_for_updating_invalid_person_id() throws Exception {
         Person mockPerson = new Person("Name", "email@email.com", "Florianopolis", "Brazilian", "073.028.567.82", new Date(), Gender.MALE);
 
         RequestBuilder request = MockMvcRequestBuilders.put("/api/v1/people/-1", mockPerson);
@@ -122,7 +122,7 @@ public class PersonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin")
-    public void should_return_bad_request_on_person_missing_required_fields() throws Exception {
+    public void should_return_bad_request_status_code_on_person_missing_required_fields() throws Exception {
         // missing fields: CPF, Birth Date and Name
         PersonForm mockPersonForm = new PersonForm();
         mockPersonForm.setNativeFrom("Florianopolis");
