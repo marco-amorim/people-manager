@@ -1,6 +1,5 @@
 package com.softplan.people.manager.services;
 
-import com.softplan.people.manager.controller.form.PersonForm;
 import com.softplan.people.manager.exception.ResourceNotFoundException;
 import com.softplan.people.manager.interfaces.IPersonService;
 import com.softplan.people.manager.model.Person;
@@ -26,11 +25,10 @@ public class PersonService implements IPersonService {
         personRepository.save(person);
     }
 
-    public void update(Long id, PersonForm personForm) {
+    public void update(Long id, Person newPerson) {
         Person person = getById(id);
-        Person newPerson = personForm.convertToPerson();
 
-        if (!person.getCpf().equals(personForm.getCpf())) {
+        if (!person.getCpf().equals(newPerson.getCpf())) {
             isCpfRegistered(newPerson.getCpf());
         }
 

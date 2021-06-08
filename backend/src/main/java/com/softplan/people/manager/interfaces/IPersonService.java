@@ -1,6 +1,5 @@
 package com.softplan.people.manager.interfaces;
 
-import com.softplan.people.manager.controller.form.PersonForm;
 import com.softplan.people.manager.model.Person;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public interface IPersonService {
 
     void add(Person person);
 
-    void update(Long id, PersonForm personForm);
+    void update(Long id, Person newPerson);
 
     void delete(Long id);
 

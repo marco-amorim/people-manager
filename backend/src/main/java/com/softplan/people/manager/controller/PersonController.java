@@ -57,7 +57,9 @@ public class PersonController implements IPersonController {
         Map<String, String> response = new HashMap<>();
 
         try {
-            personService.update(id, personForm);
+            Person newPerson = personForm.convertToPerson();
+            
+            personService.update(id, newPerson);
 
             response.put("success", "Person updated successfully");
 
